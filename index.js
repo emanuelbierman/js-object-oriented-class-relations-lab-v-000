@@ -42,11 +42,23 @@ class Passenger {
 }
 class Trip {
   constructor(driver, passenger) {
-    this.driver = function() { return driver; };
     this.driverId = driver.id;
-    this.passenger = function() { return passenger; };
     this.passengerId = passenger.id;
     this.id = ++tripId;
     store.trips.push(this);
+    this.driver = function() { return driver; };
+    this.passenger = function() { return passenger; };
   };
+  // These two methods are better than the above two because
+  // they can be bound to other objects:
+  // driver() {
+  //   return store.drivers.find(driver => {
+  //     return driver.id === this.driverId;
+  //   });
+  // }
+  // passenger() {
+  //   return store.passengers.find(passenger => {
+  //     return passenger.id === this.passengerId;
+  //   });
+  // }
 }
